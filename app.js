@@ -1,11 +1,11 @@
 
 
-function createItem(userInput) {
+function createItem(item) {
  return {
-	      list_item_name: userInput,
+	      list_item_name: item,
 		  listHTML: {
 	      list_open: '<li>',
-		  span_shop_item: '<span class="shopping-item">' + userInput + '</span>',
+		  span_shop_item: '<span class="shopping-item">' + this.list_item_name + '</span>',
 		  div_open: '<div class="shopping-item-controls">',
 		  button_toggle_open: '<button class="shopping-item-toggle">',
 		  span_button_check:  '<span class="button-label">check</span>',
@@ -26,8 +26,11 @@ function assembleHTML(itemObj) {
   return htmlVals.join("\n");
 }
 
-function addShoppingItem(userInput) {
-	var itemObj = createItem(userInput);
+function addShoppingItem(item, state) {
+	var itemObj = createItem(item);
+	if (state[item] == 'checked') {
+	  itemObj.span_shop_item = '<span class="shopping-item shopping-item__checked">' + this.list_item_name + '</span>';
+     }
     $('ul.shopping-list').append(assembleHTML(itemObj.listHTML));
  }
 
@@ -35,8 +38,8 @@ function addShoppingItem(userInput) {
 function getFormInput() {
   $('#js-shopping-list-form').submit(function(event) {
     event.preventDefault();
-    var userInput = $(event.currentTarget).find('input[name="shopping-list-entry"]').val(); 
-    addShoppingItem(userInput);
+    var item = $(event.currentTarget).find('input[name="shopping-list-entry"]').val(); 
+    addShoppingItem(item);
   });
 }
 
