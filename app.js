@@ -1,12 +1,5 @@
 
 
-
-
-function handleForm() {
-
-
-}
-
 function createItem(userInput) {
  return {
 	      list_item_name: userInput,
@@ -23,11 +16,11 @@ function createItem(userInput) {
 		  div_close: '</div>',
 		  list_close: '</li>'
 	      }
-        }
+        };
 }
 
 function assembleHTML(itemObj) {
-  var htmlVals = Object.keys(itemObj.listHTML).map(function (key) {
+  var htmlVals = Object.keys(itemObj).map(function (key) {
     return itemObj[key];
   });
   return htmlVals.join("\n");
@@ -43,12 +36,13 @@ function getFormInput() {
   $('#js-shopping-list-form').submit(function(event) {
     event.preventDefault();
     var userInput = $(event.currentTarget).find('input[name="shopping-list-entry"]').val(); 
-    return userInput;
+    //console.log(typeof(userInput));
+    //addShoppingItem(userInput);
+    var itemObj = createItem(userInput);
+    var assembled = assembleHTML(itemObj);
+    console.log(assembled);
+    //console.log(itemObj.listHTML['button_delete_open']);
   });
 }
 
-
-
-
-
-handleForm()
+getFormInput();
