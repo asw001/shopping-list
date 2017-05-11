@@ -28,7 +28,7 @@ function assembleHTML(itemObj) {
 
 function addShoppingItem(userInput) {
 	var itemObj = createItem(userInput);
-    $('ul.shopping-list').append(assembleHTML(itemObj));
+    $('ul.shopping-list').append(assembleHTML(itemObj.listHTML));
  }
 
 
@@ -36,12 +36,7 @@ function getFormInput() {
   $('#js-shopping-list-form').submit(function(event) {
     event.preventDefault();
     var userInput = $(event.currentTarget).find('input[name="shopping-list-entry"]').val(); 
-    //console.log(typeof(userInput));
-    //addShoppingItem(userInput);
-    var itemObj = createItem(userInput);
-    var assembled = assembleHTML(itemObj);
-    console.log(assembled);
-    //console.log(itemObj.listHTML['button_delete_open']);
+    addShoppingItem(userInput);
   });
 }
 
