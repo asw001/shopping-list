@@ -43,7 +43,7 @@ var addItem = function(state, item, itemStatus) {
 	}
 	else {
 	  state.groceryList[item] = itemStatus;	
-	};
+	}
 	
 };
 
@@ -65,10 +65,20 @@ var renderList = function(state, element) {
 };
 
 
+$(function() {
+  $('#js-shopping-list-form').submit(function(event) {
+    event.preventDefault();
+    addItem(state, $(event.currentTarget).find('input[name="shopping-list-entry"]').val());
+    renderList(state, $('ul.shopping-list'));
+  });
+  
+  $('.shopping-item-toggle').click(function(event) {
+    event.preventDefault();
+    
+    var a = $(this).parent().prev();
+    console.log(a.text());
 
-$('#js-shopping-list-form').submit(function(event) {
-  event.preventDefault();
-  addItem(state, $(event.currentTarget).find('input[name="shopping-list-entry"]').val());
-  renderList(state, $('ul.shopping-list'));
+  });
+
+  
 });
-
