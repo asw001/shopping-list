@@ -74,10 +74,8 @@ $(function() {
   
   $('.shopping-item-toggle').click(function(event) {
     event.preventDefault();
-    
-    var a = $(this).parent().prev();
-    console.log(a.text());
-
+    addItem(state, $(this).parent().prev().text(), 'checked')
+    renderList(state, $('ul.shopping-list'));
   });
 
   
