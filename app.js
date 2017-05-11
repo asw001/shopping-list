@@ -5,7 +5,7 @@ var state = {
 	pears: 'checked',
 	milk: 'unchecked',
 	berries: 'unchecked',}
-}
+};
 
 function createItem(item) {
  return {
@@ -34,10 +34,10 @@ function assembleHTML(itemObj) {
 };
 
 var addItem = function(state, item) {
-    if( typeof item === 'undefined' || variable === null ){
+    if( typeof item === 'undefined' || item === null ){
 	  alert("Enter a valid list item");
 	}
-    state.push(item);
+    state.groceryList.push(item);
 };
 
 var renderList = function(state, element) {
