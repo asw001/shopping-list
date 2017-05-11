@@ -33,11 +33,18 @@ function assembleHTML(itemObj) {
   return htmlVals.join("\n");
 };
 
-var addItem = function(state, item) {
+var addItem = function(state, item, itemStatus) {
+	itemStatus = itemStatus || "unchecked";
     if( typeof item === 'undefined' || item === null ){
 	  alert("Enter a valid list item");
 	}
-    state.groceryList.push(item);
+	if(! (item in state.groceryList)) {
+      state.groceryList[item] = "unchecked";
+	}
+	else {
+	  state.groceryList[item] = itemStatus;	
+	};
+	
 };
 
 var renderList = function(state, element) {
