@@ -1,10 +1,15 @@
-var state = {
+/**var state = {
 	groceryList: {
 	apples: 'unchecked',
 	pears: 'checked',
 	milk: 'unchecked',
 	berries: 'unchecked',}
+};**/
+
+var state = {
+	groceryList: {}
 };
+
 
 function createItem(item) {
  return {
@@ -76,6 +81,11 @@ var renderList = function(state, element) {
 
 
 $(function() {
+
+  $( document ).ready(function() {
+    $('ul.shopping-list').empty();
+});
+
   $('#js-shopping-list-form').on('submit', (function(event) {
     event.preventDefault();
 
