@@ -1,4 +1,3 @@
-
 var state = {
 	groceryList: {
 	apples: 'unchecked',
@@ -33,8 +32,8 @@ function assembleHTML(itemObj) {
   return htmlVals.join("\n");
 };
 
-var addItem = function(state, item, itemStatus) {
-	itemStatus = itemStatus || "unchecked";
+var addItem = function(state, item, status) {
+	status = status || "unchecked";
     if( typeof item === 'undefined' || item === null ){
 	  alert("Enter a valid list item");
 	}
@@ -42,10 +41,14 @@ var addItem = function(state, item, itemStatus) {
       state.groceryList[item] = "unchecked";
 	}
 	else {
-	  state.groceryList[item] = itemStatus;	
+	  state.groceryList[item] = status;	
 	}
 	
 };
+
+var getItemValue = function(state, item) {
+	return state.groceryList[item];
+}
 
 var renderList = function(state, element) {
   var itemObjs = Object.keys(state.groceryList).map(function(key){
@@ -53,6 +56,9 @@ var renderList = function(state, element) {
     if (state.groceryList[key] == 'checked') {
 	  itemObj.listHTML['span_shop_item'] = '<span class="shopping-item shopping-item__checked">' + itemObj.list_item_name + '</span>';
      }
+    else {
+      itemObj.listHTML['span_shop_item'] = '<span class="shopping-item">' + itemObj.list_item_name + '</span>';	
+    }
     return itemObj;
   });
   
@@ -66,17 +72,28 @@ var renderList = function(state, element) {
 
 
 $(function() {
-  $('#js-shopping-list-form').submit(function(event) {
+  $('#js-shopping-list-form').on('submit', (function(event) {
     event.preventDefault();
+
     addItem(state, $(event.currentTarget).find('input[name="shopping-list-entry"]').val());
     renderList(state, $('ul.shopping-list'));
-  });
+  }));
   
-  $('.shopping-item-toggle').click(function(event) {
+  $('ul.shopping-list').on('click', 'button', (function(event) {
     event.preventDefault();
-    addItem(state, $(this).parent().prev().text(), 'checked')
+    var itemStatus = getItemValue(state, $(this).parent().prev().text());
+
+    if (itemStatus == 'checked') {
+    	itemStatus = 'unchecked';
+       }
+    else {
+    	itemStatus = 'checked';
+      }
+
+    addItem(state, $(this).parent().prev().text(), itemStatus);
     renderList(state, $('ul.shopping-list'));
-  });
+   
+  }));
 
   
 });
