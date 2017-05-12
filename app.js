@@ -50,6 +50,10 @@ var getItemValue = function(state, item) {
 	return state.groceryList[item];
 }
 
+var deleteItem = function(state, item) {
+    delete state.groceryList[item];
+};
+
 var renderList = function(state, element) {
   var itemObjs = Object.keys(state.groceryList).map(function(key){
     var itemObj = createItem(key);
@@ -95,5 +99,12 @@ $(function() {
    
   }));
 
+$('ul.shopping-list').on('click', 'button.shopping-item-delete', (function(event) {
+    event.preventDefault();
+        
+    deleteItem(state, $(this).parent().prev().text());
+    renderList(state, $('ul.shopping-list'));
+   
+  }));
   
 });
