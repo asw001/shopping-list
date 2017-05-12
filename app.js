@@ -79,7 +79,7 @@ $(function() {
     renderList(state, $('ul.shopping-list'));
   }));
   
-  $('ul.shopping-list').on('click', 'button', (function(event) {
+  $('ul.shopping-list').on('click', 'button.shopping-item-toggle', (function(event) {
     event.preventDefault();
     var itemStatus = getItemValue(state, $(this).parent().prev().text());
 
