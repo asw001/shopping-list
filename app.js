@@ -11,8 +11,8 @@ var state = {
 };
 
 
-function createItem(item) {
- return {
+function createItem(item) { //made sense at the time to return an object;
+ return {                   //key-pair value makes sense to refer to a tag
 	      list_item_name: item,
 		  listHTML: {
 	      list_open: '<li>',
@@ -34,21 +34,17 @@ function assembleHTML(itemObj) {
   var htmlVals = Object.keys(itemObj).map(function(key) {
     return itemObj[key];
   });
-  return htmlVals.join("\n");
+  return htmlVals.join("\n"); //get one element per line with newline
 };
 
-var addItem = function(state, item, status) {
-	status = status || "unchecked";
-    if( typeof item === 'undefined' || item === null ){
-	  alert("Enter a valid list item");
-	}
+var addItem = function(state, item, status) {// state is defined globally, but we are passing vals
+	//status = status || "unchecked";
 	if(! (item in state.groceryList)) {
       state.groceryList[item] = "unchecked";
 	}
 	else {
 	  state.groceryList[item] = status;	
 	}
-	
 };
 
 var getItemValue = function(state, item) {
@@ -60,7 +56,7 @@ var deleteItem = function(state, item) {
 };
 
 var renderList = function(state, element) {
-  var itemObjs = Object.keys(state.groceryList).map(function(key){
+  var itemObjs = Object.keys(state.groceryList).map(function(key){//array of objects (list item dict)
     var itemObj = createItem(key);
     if (state.groceryList[key] == 'checked') {
 	  itemObj.listHTML['span_shop_item'] = '<span class="shopping-item shopping-item__checked">' + itemObj.list_item_name + '</span>';
@@ -71,7 +67,7 @@ var renderList = function(state, element) {
     return itemObj;
   });
   
-  var convertedItems = itemObjs.map(function(item) {
+  var convertedItems = itemObjs.map(function(item) {//object values extracted
 	var listItem = assembleHTML(item.listHTML) 
 	return listItem;
   });
